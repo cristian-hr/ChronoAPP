@@ -1,5 +1,8 @@
+"use strict";
 import { Router } from 'express';
-import { Chronometer } from "../../db.js"
+import { Chronometer } from "../db.js";
+import "babel-core/register";
+import "babel-polyfill";
 
 const router = Router();
 
@@ -33,3 +36,4 @@ router.post("/", async (req, res) => {
     }
 })
 
+export default router;

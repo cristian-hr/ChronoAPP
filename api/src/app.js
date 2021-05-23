@@ -1,8 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-const routes = require('./src/routes/index.js');
-const nunjucks = require("nunjucks");
+const routes = require('./routes/index.js').default;
 const cors = require("cors")
 const { FRONT_URL } = process.env;
 
@@ -10,11 +9,7 @@ require('./db.js');
 
 const server = express();
 
-server.name = 'API';
-
-server.set("views", __dirname + "/views")
-server.set("view engine", "html");
-server.engine("html", nunjucks.render)
+// server.name = 'API';
 
 server.use(express.json());
 server.use(cors())
