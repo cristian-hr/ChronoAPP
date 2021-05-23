@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "babel-watch index.js",
+    "dev": "babel-watch ./src/index.js",
     "build": "babel src --out-dir dist",
-    "start": "nodemon index.js",
+    "start": "nodemon ./dist/index.js",
     "test": "mocha -w --timeout 10000 ./tests/**/*.spec.js"
   },
   "author": "",
