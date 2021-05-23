@@ -9,7 +9,7 @@
     "start": "nodemon index.js",
     "test": "mocha -w --timeout 10000 ./tests/**/*.spec.js"
   },
-  "author": "Henry",
+  "author": "",
   "license": "ISC",
   "engines": {
     "node": ">=12.18.3",

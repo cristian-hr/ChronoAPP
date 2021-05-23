@@ -49,19 +49,64 @@
 }
 
 .buttonFinish {
-    color: white;
     margin: 10px;
     font-size: 20px;
     border-radius: 15px;
     border: none;
     padding: 4px 15px;
     transition: 0.2s;
-    background: rgb(255, 82, 51);
+    background: rgb(209, 209, 209);
 }
 .buttonFinish:hover {
-    background: rgb(255, 113, 88);
+    background: rgb(182, 182, 182);
 }
 
 .recordNumberChrono {
     margin-right: 20px;
+}
+
+.divRecordedTimesChrono {
+    margin:15px;
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+.divTimesChrono {
+    width: 20%;
+}
+.divSingleTimeChrono {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.divDeleteRecordButton{
+    margin-right: 6%;
+    margin-bottom: 1%;
+}
+
+.deleteRecordButton {
+    color: white;
+    font-size: 15px;
+    padding: 1px 10px;
+    background: rgb(33, 81, 170);
+    border: none;
+    border-radius: 15px;
+    transition: 0.2s;
+}
+.deleteRecordButton:hover {
+    background: rgb(49, 102, 201);
+}
+
+.clearAllButtonChrono {
+    color: white;
+    font-size: 15px;
+    padding: 1px 10px;
+    background: rgb(255, 60, 25);
+    border: none;
+    border-radius: 15px; 
+    transition: 0.2s;
+}
+.clearAllButtonChrono:hover {
+    background: rgb(255, 100, 72);
 }
