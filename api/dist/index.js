@@ -10,7 +10,7 @@ var _db = _interopRequireDefault(require("./db.js"));
 _db["default"].conn.sync({
   truncate: true
 }).then(function () {
-  _app["default"].listen(process.env.PORT, function () {
-    console.log("%s listening at ".concat(process.env.PORT)); // eslint-disable-line no-console
+  _app["default"].listen(process.env.PORT || 3001, function () {
+    console.log("%s listening at ".concat(process.env.PORT || 3001)); // eslint-disable-line no-console
   });
 });
