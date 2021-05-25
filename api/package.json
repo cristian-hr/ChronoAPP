@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "babel-watch ./src/index.js",
+    "dev": "babel-watch -L ./src/index.js",
     "build": "babel src --out-dir dist",
-    "start": "nodemon ./dist/index.js",
+    "nodemon": "nodemon ./dist/index.js",
+    "start": "node ./dist/index.js",
     "test": "jest --detectOpenHandles"
   },
   "author": "",

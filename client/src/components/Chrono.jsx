@@ -32,9 +32,9 @@ function Chrono() {
         if (trigger.start) {
             interval = setInterval(() => {
 
-                if (newMin === 100) newMin = 0;
-                if (newSec === 60) { newMin++; newSec = 0 }
                 if (newMs === 100) { newSec++; newMs = 0 }
+                if (newSec === 60) { newMin++; newSec = 0 }
+                if (newMin === 100) newMin = 0;
 
                 newMs++
 
@@ -55,13 +55,13 @@ function Chrono() {
                 .then((res) => {
                     setRecord([...record, res.data])
                 })
+                .then(() => setTimer(initialTimer))
+                .then(() => setTrigger({ ...trigger, finish: false }))
                 .catch((err) => console.log(err))
-
-            setTimer(initialTimer)
-            setTrigger({ ...trigger, finish: false })
-
         }
-        return () => clearInterval(interval);
+        else {
+            return () => clearInterval(interval);
+        }
 
     }, [trigger])
 
@@ -92,7 +92,7 @@ function Chrono() {
 
     return (
         <div className="chronoCont">
-            <h1>Chrono</h1>
+            <h1>Chronometer</h1>
             <div className="timerChrono">
                 <span className="numbersChrono">{("0" + timer.min).slice(-2)} :</span>
                 <span className="numbersChrono">{("0" + timer.sec).slice(-2)} :</span>

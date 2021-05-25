@@ -1,6 +1,6 @@
 // "use strict";
 import { Router } from 'express';
-import seq from "../db.js";
+import db from "../db.js";
 // import "babel-core/register";
 // import "babel-polyfill";
 
@@ -9,7 +9,7 @@ const router = Router();
 router.get("/", async (req, res) => {
 
     try {
-        const records = await seq.Chronometer.findAll({})
+        const records = await db.Chronometer.findAll({})
         res.json(records)
     } catch (error) {
         console.log(error)
@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
     const { time, idFront } = req.body
 
     try {
-        const newTime = await seq.Chronometer.create({ idFront, time })
+        const newTime = await db.Chronometer.create({ time })
         res.json(newTime)
 
     } catch (error) {
@@ -35,11 +35,11 @@ router.delete("/", async (req, res) => {
 
     try {
         if (typeof id === "number") {
-            const deleteTime = await seq.Chronometer.destroy({ where: { id } })
+            const deleteTime = await db.Chronometer.destroy({ where: { id } })
             res.json(deleteTime)
         }
         else {            
-            await seq.Chronometer.destroy({
+            await db.Chronometer.destroy({
                 where: {},
                 truncate: true
             })

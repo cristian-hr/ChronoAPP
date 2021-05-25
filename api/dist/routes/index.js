@@ -65,7 +65,6 @@ router.post("/", /*#__PURE__*/function () {
             _context2.prev = 1;
             _context2.next = 4;
             return _db["default"].Chronometer.create({
-              idFront: idFront,
               time: time
             });
 
