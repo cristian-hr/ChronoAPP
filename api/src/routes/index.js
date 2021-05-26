@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
 
-    const { time, idFront } = req.body
+    const { time } = req.body
 
     try {
         const newTime = await db.Chronometer.create({ time })

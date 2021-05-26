@@ -1,44 +1,39 @@
-version: '3.7'
+version: '3.9'
 
 services:  
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: mysecretpassword      
-    volumes:
-      - ./db_data:/var/lib/postgresql/data
-    ports:
-      - '5432:5432'
-    expose:
-      - "5432"
 
-  backend:
-    image: cristianhr/backend
-    build:
-      context: ./api
-      dockerfile: Dockerfile
-    depends_on: 
-      - db
+  db:
+    image: "postgres"
+    environment: 
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_USER: docker
+    volumes: 
+      - data:/var/lib/postgresql/data
+    mem_limit: 256m
+    mem_reservation: 64M
+    cpus: 0.5
+
+  api:
+    build: ./api
     ports:
       - "3001:3001"
-    expose: 
-      - "3001"
-    env_file:
-        "./api/.env" 
-    volumes:
-      - ./api:/opt/app
+    depends_on: 
+      - db
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_USER: docker 
+    mem_limit: 256m
+    mem_reservation: 64M
+    cpus: 0.5
 
-  frontend:
-    image: cristianhr/frontend
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+  client:
+    build: ./client
     ports:
       - "80:3000"
-    expose:
-      - "3000"
-    env_file:
-      "./client/.env"
-    volumes:
-      - ./client:/opt/app
+    environment:
+      BACKEND_DOCKER_URL: "api:3001"
+    mem_limit: 1024m
+    mem_reservation: 128M
+
+volumes: 
+  data:

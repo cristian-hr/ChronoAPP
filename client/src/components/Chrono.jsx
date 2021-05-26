@@ -4,7 +4,14 @@ import "./Chrono.css";
 
 function Chrono() {
 
-    const { REACT_APP_BACK_URL } = process.env
+    var back_url
+
+    if (process.env.BACKEND_DOCKER_URL) {        
+        back_url = process.env.BACKEND_DOCKER_URL
+    }
+    else {
+        back_url = process.env.REACT_APP_BACK_URL
+    }
 
     const initialTimer = { min: 0, sec: 0, ms: 0 }
     const initialRecord = []
@@ -20,7 +27,7 @@ function Chrono() {
 
     //Get data from DB
     useEffect(() => {
-        axios.get(REACT_APP_BACK_URL)
+        axios.get(back_url)
             .then((res) => setRecord(res.data))
             .catch((err) => console.log(err))
     }, [])
@@ -44,7 +51,7 @@ function Chrono() {
         }
         //Finish timer and saved it in the DB
         if (trigger.finish) {
-            axios.post(REACT_APP_BACK_URL,
+            axios.post(back_url,
                 {
                     time:
                         ("0" + timer.min).slice(-2) + ":" +
@@ -78,14 +85,14 @@ function Chrono() {
 
     //Clear all records
     function clearRecords() {
-        axios.delete(REACT_APP_BACK_URL, { data: { id: "All" } })
+        axios.delete(back_url, { data: { id: "All" } })
             .catch(err => console.log(err))
         setRecord(initialRecord)
     }
 
     //Delete record
     function deleteRecord(time) {
-        axios.delete(REACT_APP_BACK_URL, { data: { id: time.id } })
+        axios.delete(back_url, { data: { id: time.id } })
             .catch(err => console.log(err))
         setRecord([...record.filter(record => record.id !== time.id)])
     }

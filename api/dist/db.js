@@ -34,11 +34,10 @@ if (process.env.POSTGRES_PASSWORD) {
   var config = {
     user: process.env.POSTGRES_USER,
     pass: process.env.POSTGRES_PASSWORD,
-    name: process.env.POSTGRES_DB,
-    host: process.env.POSTGRES_HOST_AUTH_METHOD,
-    port: "3001"
+    name: process.env.POSTGRES_USER,
+    host: "db"
   };
-  var sequelize = new _sequelize.Sequelize("postgres://".concat(config.user, ":").concat(config.pass, "@").concat(config.host, ":").concat(config.port, "/").concat(config.name), {
+  var sequelize = new _sequelize.Sequelize("postgres://".concat(config.user, ":").concat(config.pass, "@").concat(config.host, ":/").concat(config.name), {
     logging: false,
     // set to console.log to see the raw SQL queries
     "native": false // lets Sequelize know we can use pg-native for ~30% more speed

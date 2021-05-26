@@ -55,13 +55,12 @@ router.get("/", /*#__PURE__*/function () {
 }());
 router.post("/", /*#__PURE__*/function () {
   var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-    var _req$body, time, idFront, newTime;
-
+    var time, newTime;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _req$body = req.body, time = _req$body.time, idFront = _req$body.idFront;
+            time = req.body.time;
             _context2.prev = 1;
             _context2.next = 4;
             return _db["default"].Chronometer.create({
