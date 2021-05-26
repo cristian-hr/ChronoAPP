@@ -29,12 +29,30 @@ var _process$env = process.env,
     DB_HOST = _process$env.DB_HOST,
     DB_NAME = _process$env.DB_NAME,
     DB_PORT = _process$env.DB_PORT;
-var sequelize = new _sequelize.Sequelize("postgres://".concat(DB_USER, ":").concat(DB_PASSWORD, "@").concat(DB_HOST, ":").concat(DB_PORT, "/").concat(DB_NAME), {
-  logging: false,
-  // set to console.log to see the raw SQL queries
-  "native": false // lets Sequelize know we can use pg-native for ~30% more speed
 
-});
+if (process.env.POSTGRES_PASSWORD) {
+  var config = {
+    user: process.env.POSTGRES_USER,
+    pass: process.env.POSTGRES_PASSWORD,
+    name: process.env.POSTGRES_DB,
+    host: process.env.POSTGRES_HOST_AUTH_METHOD,
+    port: "3001"
+  };
+  var sequelize = new _sequelize.Sequelize("postgres://".concat(config.user, ":").concat(config.pass, "@").concat(config.host, ":").concat(config.port, "/").concat(config.name), {
+    logging: false,
+    // set to console.log to see the raw SQL queries
+    "native": false // lets Sequelize know we can use pg-native for ~30% more speed
+
+  });
+} else {
+  var sequelize = new _sequelize.Sequelize("postgres://".concat(DB_USER, ":").concat(DB_PASSWORD, "@").concat(DB_HOST, ":").concat(DB_PORT, "/").concat(DB_NAME), {
+    logging: false,
+    // set to console.log to see the raw SQL queries
+    "native": false // lets Sequelize know we can use pg-native for ~30% more speed
+
+  });
+}
+
 var basename = (0, _path.basename)(__filename);
 var modelDefiners = []; // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
 

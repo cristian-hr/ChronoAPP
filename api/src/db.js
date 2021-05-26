@@ -4,10 +4,31 @@ import { readdirSync } from 'fs';
 import { basename as _basename, join } from 'path';
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
-  logging: false, // set to console.log to see the raw SQL queries
-  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-});
+
+if (process.env.POSTGRES_PASSWORD) {
+
+  const config = {
+    user: process.env.POSTGRES_USER,
+    pass: process.env.POSTGRES_PASSWORD,
+    name: process.env.POSTGRES_DB,
+    host: "localhost",
+    port: "5432"
+  }
+
+  var sequelize = new Sequelize(`postgres://${config.user}:${config.pass}@${config.host}:${config.port}/${config.name}`, {
+      logging: false, // set to console.log to see the raw SQL queries
+      native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+    });
+
+}
+else {
+  var sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
+    logging: false, // set to console.log to see the raw SQL queries
+    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  });
+}
+
+
 const basename = _basename(__filename);
 
 const modelDefiners = [];
@@ -29,7 +50,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
-const {} = sequelize.models;
+const { } = sequelize.models;
 
 sequelize.authenticate()
   .then(() => {
@@ -37,7 +58,7 @@ sequelize.authenticate()
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err);
-});
+  });
 
 export default {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

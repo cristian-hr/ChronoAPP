@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "14psa9714",
+    "database": "chronometer",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
