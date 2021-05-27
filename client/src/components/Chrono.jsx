@@ -6,47 +6,44 @@ function Chrono() {
 
     var back_url
 
-    if (process.env.BACKEND_DOCKER_URL) {        
+    if (process.env.BACKEND_DOCKER_URL) {
         back_url = process.env.BACKEND_DOCKER_URL
     }
     else {
         back_url = process.env.REACT_APP_BACK_URL
     }
 
-    const initialTimer = { min: 0, sec: 0, ms: 0 }
+    const initialTimer = { min: 0, sec: 0, cen: 0, allCen: 0 }
     const initialRecord = []
-    const initialTrigger = { start: false, pause: true, finish: false }
+    const initialTrigger = { start: false, finish: false }
 
     const [timer, setTimer] = useState(initialTimer)
     const [record, setRecord] = useState(initialRecord)
     const [trigger, setTrigger] = useState(initialTrigger)
-
-    let newMin = timer.min;
-    let newSec = timer.sec;
-    let newMs = timer.ms;
 
     //Get data from DB
     useEffect(() => {
         axios.get(back_url)
             .then((res) => setRecord(res.data))
             .catch((err) => console.log(err))
-    }, [])
+    }, [back_url])
 
     useEffect(() => {
 
+        let cen = timer.allCen
         let interval = null
+
         //Start timer
         if (trigger.start) {
             interval = setInterval(() => {
 
-                if (newMs === 100) { newSec++; newMs = 0 }
-                if (newSec === 60) { newMin++; newSec = 0 }
-                if (newMin === 100) newMin = 0;
+                let newCen = cen % 100
+                let newSec = Math.floor(cen / 100) % 60
+                let newMin = Math.floor(cen / 6000) % 100
+                cen++
 
-                newMs++
-
-                setTimer({ min: newMin, sec: newSec, ms: newMs });
-
+                setTimer({ min: newMin, sec: newSec, cen: newCen, allCen: cen });
+                
             }, 10);
         }
         //Finish timer and saved it in the DB
@@ -56,7 +53,7 @@ function Chrono() {
                     time:
                         ("0" + timer.min).slice(-2) + ":" +
                         ("0" + timer.sec).slice(-2) + ":" +
-                        ("0" + timer.ms).slice(-2)
+                        ("0" + timer.cen).slice(-2)
                 }
             )
                 .then((res) => {
@@ -69,7 +66,7 @@ function Chrono() {
         else {
             return () => clearInterval(interval);
         }
-
+        // eslint-disable-next-line
     }, [trigger])
 
     //Trigger handle
@@ -80,7 +77,7 @@ function Chrono() {
 
     //Finish handle
     function handleFinish() {
-        if (timer.min || timer.sec || timer.ms) setTrigger({ start: false, finish: true })
+        if (timer.min || timer.sec || timer.cen) setTrigger({ start: false, finish: true })
     }
 
     //Clear all records
@@ -103,7 +100,7 @@ function Chrono() {
             <div className="timerChrono">
                 <span className="numbersChrono">{("0" + timer.min).slice(-2)} :</span>
                 <span className="numbersChrono">{("0" + timer.sec).slice(-2)} :</span>
-                <span className="numbersChrono">{("0" + timer.ms).slice(-2)}</span>
+                <span className="numbersChrono">{("0" + timer.cen).slice(-2)}</span>
             </div>
             <div className="buttonsChrono">
                 {trigger.start ?
