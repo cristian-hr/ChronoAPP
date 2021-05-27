@@ -7,13 +7,13 @@ import './db.js';
 
 const server = express();
 
-server.use(json());
-server.use(cors())
+// server.use(json());
 
 server.use(urlencoded({ extended: true, limit: '50mb' }));
 server.use(json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
+server.use(cors())
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');

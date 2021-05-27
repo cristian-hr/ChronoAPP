@@ -1,10 +1,12 @@
-const { DataTypes } = require('sequelize');
+import { DataTypes } from 'sequelize';
 
-module.exports = (sequelize) => {
-  sequelize.define('chronometer', {    
+const chrono = (sequelize) => {
+  return sequelize.define('chronometer', {    
     time: {
       type: DataTypes.STRING,
       allowNull: false
     }
   });
 };
+
+export default chrono
