@@ -13,7 +13,7 @@ function Chrono() {
         back_url = process.env.REACT_APP_BACK_URL
     }
 
-    const initialTimer = { min: 0, sec: 0, cen: 0, allCen: 0 }
+    const initialTimer = { min: 0, sec: 0, hun: 0, allHun: 0 }
     const initialRecord = []
     const initialTrigger = { start: false, finish: false }
 
@@ -30,19 +30,19 @@ function Chrono() {
 
     useEffect(() => {
 
-        let cen = timer.allCen
+        let hun = timer.allHun
         let interval = null
 
         //Start timer
         if (trigger.start) {
             interval = setInterval(() => {
 
-                let newCen = cen % 100
-                let newSec = Math.floor(cen / 100) % 60
-                let newMin = Math.floor(cen / 6000) % 100
-                cen++
+                let newHun = hun % 100
+                let newSec = Math.floor(hun / 100) % 60
+                let newMin = Math.floor(hun / 6000) % 100
+                hun++
 
-                setTimer({ min: newMin, sec: newSec, cen: newCen, allCen: cen });
+                setTimer({ min: newMin, sec: newSec, hun: newHun, allHun: hun });
                 
             }, 10);
         }
@@ -53,7 +53,7 @@ function Chrono() {
                     time:
                         ("0" + timer.min).slice(-2) + ":" +
                         ("0" + timer.sec).slice(-2) + ":" +
-                        ("0" + timer.cen).slice(-2)
+                        ("0" + timer.hun).slice(-2)
                 }
             )
                 .then((res) => {
@@ -77,7 +77,7 @@ function Chrono() {
 
     //Finish handle
     function handleFinish() {
-        if (timer.min || timer.sec || timer.cen) setTrigger({ start: false, finish: true })
+        if (timer.min || timer.sec || timer.hun) setTrigger({ start: false, finish: true })
     }
 
     //Clear all records
@@ -98,9 +98,11 @@ function Chrono() {
         <div className="chronoCont">
             <h1>Chronometer</h1>
             <div className="timerChrono">
-                <span className="numbersChrono">{("0" + timer.min).slice(-2)} :</span>
-                <span className="numbersChrono">{("0" + timer.sec).slice(-2)} :</span>
-                <span className="numbersChrono">{("0" + timer.cen).slice(-2)}</span>
+                <span className="numbersChrono">
+                    {("0" + timer.min).slice(-2)+" : "}
+                    {("0" + timer.sec).slice(-2)+" : "}
+                    {("0" + timer.hun).slice(-2)}
+                </span>
             </div>
             <div className="buttonsChrono">
                 {trigger.start ?

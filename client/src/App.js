@@ -1,7 +1,7 @@
-import Chrono from "./components/Chrono";
+import Chrono from "./components/Chrono.js";
 import './App.css';
 
-function App() { 
+function App() {
 
   return (
     <div className="App">
