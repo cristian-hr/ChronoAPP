@@ -46,7 +46,7 @@ function Chrono() {
                 
             }, 10);
         }
-        //Finish timer and saved it in the DB
+        //Finish timer and save it in the DB
         if (trigger.finish) {
             axios.post(back_url,
                 {
@@ -62,11 +62,10 @@ function Chrono() {
                 .then(() => setTimer(initialTimer))
                 .then(() => setTrigger({ ...trigger, finish: false }))
                 .catch((err) => console.log(err))
-        }
-        else {
-            return () => clearInterval(interval);
-        }
-        // eslint-disable-next-line
+        } 
+
+        return () => clearInterval(interval);        
+       
     }, [trigger])
 
     //Trigger handle
@@ -118,12 +117,14 @@ function Chrono() {
             <div className="divTimesChrono">
                 {
                     record.map((times, index) => {
-                        return <div className="divSingleTimeChrono">
+                        return <div key={index} className="divSingleTimeChrono">
                             <div>
                                 <span className="recordNumberChrono">{index + 1}.</span>
-                                <span>{times.time.slice(0, 2)} : </span>
-                                <span>{times.time.slice(3, 5)} : </span>
-                                <span>{times.time.slice(6, 8)}</span>
+                                <span>
+                                    {times.time.slice(0, 2)+" : "}
+                                    {times.time.slice(3, 5)+" : "} 
+                                    {times.time.slice(6, 8)}  
+                                </span>
                             </div>
                             <div className="divDeleteRecordButton">
                                 <button className="deleteRecordButton" onClick={() => deleteRecord(times)}> X </button>
