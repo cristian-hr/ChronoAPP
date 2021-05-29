@@ -1,7 +1,7 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils'
 import { configure, mount } from 'enzyme';
-import Chrono from './Chrono.js';
+import Chrono from './Chrono.jsx';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 configure({ adapter: new Adapter() });
@@ -36,7 +36,7 @@ describe("Chrono", () => {
 
     test("pause button must pause the timer", async () => {
         /* Al renderizar Chrono, el botón Pause está oculto, y al buscarlo con un find no se encuentra.
-        Entonces para el test se va a usar el mismo botón Start el cual usa la misma función handleTrigger que el botón Pause,
+        Entonces para los tests se va a usar el mismo botón Start el cual usa la misma función handleTrigger que el botón Pause,
         la cual varía dependiendo del estado del trigger. */
         let timer;
 
@@ -44,7 +44,7 @@ describe("Chrono", () => {
             wrapper.find(".buttonStart").simulate("click")
         })
 
-        //En los test hay un retraso de 1 centesima, por lo que se agrega en el timer.
+        //En los test hay un retraso de 1 centesima, por lo que se agrega en el advanceTimersByTime.
         //Ej: 510 en vez de 500
         await act(async () => {
             jest.advanceTimersByTime(510);
@@ -70,7 +70,7 @@ describe("Chrono", () => {
         await act(async () => {
             wrapper.find(".buttonStart").simulate("click")
         })
-        //Espero una centecima de segundo y paro el timer
+        //Espero 510ms y paro el timer
         await act(async () => {
             jest.advanceTimersByTime(510);
             wrapper.find(".buttonStart").simulate("click")
@@ -85,6 +85,7 @@ describe("Chrono", () => {
 
         jest.useRealTimers()
         await new Promise(res => setTimeout(res, 1000))
+
         // //Verifico que el timer esté en "00:00:00"  
         expect(wrapper.find(".numbersChrono").text()).toBe("00 : 00 : 00")
     })
@@ -104,7 +105,7 @@ describe("Chrono", () => {
         await new Promise(res => setTimeout(res, 1000))
         wrapper.update()
 
-        //Verifico que el timer exista el tiempo "00:00:82"
+        //Verifico que los timers exista el tiempo "00:00:82"
         let times = wrapper.find("span").map(span => span.text())
         let time = times.find(time => time === "00 : 00 : 82")
 
@@ -192,7 +193,7 @@ describe("Chrono", () => {
         //Verifico que todos los tiempos se hayan borrado.
         let times = wrapper.find("span").map(span => span.text())        
         let time = times.includes("00 : 00 : 30", "00 : 00 : 28")
-        //Time debería ser false si ninguno de los tiempos existe en el array times
+        //time debería ser false si ninguno de los tiempos existe en el array times
         expect(time).toBe(false)
     })
 })

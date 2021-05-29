@@ -1,4 +1,4 @@
-import Chrono from "./components/Chrono.js";
+import Chrono from "./components/Chrono.jsx";
 import './App.css';
 
 function App() {
