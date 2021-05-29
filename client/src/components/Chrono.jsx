@@ -43,7 +43,7 @@ function Chrono() {
                 hun++
 
                 setTimer({ min: newMin, sec: newSec, hun: newHun, allHun: hun });
-                
+
             }, 10);
         }
         //Finish timer and save it in the DB
@@ -56,16 +56,14 @@ function Chrono() {
                         ("0" + timer.hun).slice(-2)
                 }
             )
-                .then((res) => {
-                    setRecord([...record, res.data])
-                })
+                .then((res) => setRecord([...record, res.data]))
                 .then(() => setTimer(initialTimer))
                 .then(() => setTrigger({ ...trigger, finish: false }))
                 .catch((err) => console.log(err))
-        } 
+        }
 
-        return () => clearInterval(interval);        
-       
+        return () => clearInterval(interval);
+
     }, [trigger])
 
     //Trigger handle
@@ -98,8 +96,8 @@ function Chrono() {
             <h1>Chronometer</h1>
             <div className="timerChrono">
                 <span className="numbersChrono">
-                    {("0" + timer.min).slice(-2)+" : "}
-                    {("0" + timer.sec).slice(-2)+" : "}
+                    {("0" + timer.min).slice(-2) + " : "}
+                    {("0" + timer.sec).slice(-2) + " : "}
                     {("0" + timer.hun).slice(-2)}
                 </span>
             </div>
@@ -121,9 +119,9 @@ function Chrono() {
                             <div>
                                 <span className="recordNumberChrono">{index + 1}.</span>
                                 <span>
-                                    {times.time.slice(0, 2)+" : "}
-                                    {times.time.slice(3, 5)+" : "} 
-                                    {times.time.slice(6, 8)}  
+                                    {times.time.slice(0, 2) + " : "}
+                                    {times.time.slice(3, 5) + " : "}
+                                    {times.time.slice(6, 8)}
                                 </span>
                             </div>
                             <div className="divDeleteRecordButton">

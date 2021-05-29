@@ -26,22 +26,23 @@ var _process$env = process.env,
     DB_USER = _process$env.DB_USER,
     DB_PASSWORD = _process$env.DB_PASSWORD,
     DB_HOST = _process$env.DB_HOST,
-    DB_NAME = _process$env.DB_NAME,
+    DB_TEST_NAME = _process$env.DB_TEST_NAME,
     DB_PORT = _process$env.DB_PORT;
 
 if (process.env.POSTGRES_PASSWORD) {
-  var dbConfig = {
+  var _config = {
     user: process.env.POSTGRES_USER,
     pass: process.env.POSTGRES_PASSWORD,
     name: process.env.POSTGRES_USER,
-    host: "db"
+    host: "db-test"
   };
-  var sequelize = new _sequelize.Sequelize("postgres://".concat(dbConfig.user, ":").concat(dbConfig.pass, "@").concat(dbConfig.host, ":/").concat(dbConfig.name), {
+  var sequelize = new _sequelize.Sequelize("postgres://".concat(_config.user, ":").concat(_config.pass, "@").concat(_config.host, ":/").concat(_config.name), {
     logging: false,
-    "native": false
+    "native": false // lets Sequelize know we can use pg-native for ~30% more speed
+
   });
 } else {
-  var sequelize = new _sequelize.Sequelize("postgres://".concat(DB_USER, ":").concat(DB_PASSWORD, "@").concat(DB_HOST, ":").concat(DB_PORT, "/").concat(DB_NAME), {
+  var sequelize = new _sequelize.Sequelize("postgres://".concat(DB_USER, ":").concat(DB_PASSWORD, "@").concat(DB_HOST, ":").concat(DB_PORT, "/").concat(DB_TEST_NAME), {
     logging: false,
     "native": false
   });
@@ -49,10 +50,10 @@ if (process.env.POSTGRES_PASSWORD) {
 
 var basename = (0, _path.basename)(__filename);
 var modelDefiners = [];
-(0, _fs.readdirSync)((0, _path.join)(__dirname, '/models')).filter(function (file) {
+(0, _fs.readdirSync)((0, _path.join)(__dirname, '../models')).filter(function (file) {
   return file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js';
 }).forEach(function (file) {
-  modelDefiners.push(require((0, _path.join)(__dirname, '/models', file)));
+  modelDefiners.push(require((0, _path.join)(__dirname, '../models', file)));
 });
 modelDefiners.forEach(function (model) {
   return model["default"](sequelize);
@@ -62,11 +63,6 @@ var capsEntries = entries.map(function (entry) {
   return [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]];
 });
 sequelize.models = Object.fromEntries(capsEntries);
-sequelize.authenticate().then(function () {
-  console.log('Connection has been established successfully.');
-})["catch"](function (err) {
-  console.error('Unable to connect to the database:', err);
-});
 
 var _default = _objectSpread(_objectSpread({}, sequelize.models), {}, {
   conn: sequelize

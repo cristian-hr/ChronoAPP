@@ -11,15 +11,11 @@ exports["default"] = void 0;
 
 var _express = _interopRequireWildcard(require("express"));
 
-var _cookieParser = _interopRequireDefault(require("cookie-parser"));
-
-var _morgan = _interopRequireDefault(require("morgan"));
-
 var _index = _interopRequireDefault(require("./routes/index.js"));
 
 var _cors = _interopRequireDefault(require("cors"));
 
-require("./db.js");
+require("./db-test");
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -27,7 +23,6 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 var server = (0, _express["default"])();
 server.use((0, _cors["default"])());
-server.use((0, _cookieParser["default"])());
 server.use((0, _express.urlencoded)({
   extended: true,
   limit: '50mb'
@@ -35,14 +30,14 @@ server.use((0, _express.urlencoded)({
 server.use((0, _express.json)({
   limit: '50mb'
 }));
-server.use((0, _morgan["default"])('dev'));
 server.use(function (req, res, next) {
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
-server.use('/', _index["default"]);
+server.use('/', _index["default"]); // Error catching endware.
+
 server.use(function (err, req, res, next) {
   // eslint-disable-line no-unused-vars
   var status = err.status || 500;

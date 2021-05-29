@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "jest": {
+    "testPathIgnorePatterns": ["dist"]
+  },
   "scripts": {
     "dev": "babel-watch -L ./src/index.js",
     "build": "babel src --out-dir dist",

@@ -1,13 +1,20 @@
 "use strict";
 
-var _require = require('sequelize'),
-    DataTypes = _require.DataTypes;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 
-module.exports = function (sequelize) {
-  sequelize.define('chronometer', {
+var _sequelize = require("sequelize");
+
+var chrono = function chrono(sequelize) {
+  return sequelize.define('chronometer', {
     time: {
-      type: DataTypes.STRING,
+      type: _sequelize.DataTypes.STRING,
       allowNull: false
     }
   });
 };
+
+var _default = chrono;
+exports["default"] = _default;

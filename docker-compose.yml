@@ -9,6 +9,8 @@ services:
       POSTGRES_USER: docker
     volumes: 
       - data:/var/lib/postgresql/data
+    ports:
+      - 4321:5432
     mem_limit: 256m
     mem_reservation: 64M
     cpus: 0.5
@@ -17,7 +19,7 @@ services:
     image: "postgres"
     environment: 
       POSTGRES_PASSWORD: mysecretpassword
-      POSTGRES_USER: docker
+      POSTGRES_USER: docker_test
     volumes: 
       - data-test:/var/lib/postgresql/data
     ports:
@@ -35,7 +37,7 @@ services:
       - db-test
     environment:
       POSTGRES_PASSWORD: mysecretpassword
-      POSTGRES_USER: docker 
+      POSTGRES_USER: docker
     mem_limit: 256m
     mem_reservation: 64M
     cpus: 0.5
@@ -44,6 +46,8 @@ services:
     build: ./client
     ports:
       - "80:3000"
+    depends_on: 
+      - api
     environment:
       BACKEND_DOCKER_URL: "api:3001"
     mem_limit: 1024m
@@ -51,3 +55,4 @@ services:
 
 volumes: 
   data:
+  data-test:
