@@ -8,7 +8,7 @@ Esta es una app de un cronómetro la cual tiene la funcionalidad de:
 * Borrar un tiempo específico
 * Borrar todos los tiempos
 
-## Base de datsos
+## Base de datos
 Crear dos bases de datos distintas. Una para la app y otra para los test.
 
 Se pueden llamar:
