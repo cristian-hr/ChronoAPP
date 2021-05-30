@@ -1,6 +1,19 @@
 # ChronoAPP
 
-Para hacer correr la APP hay que crear dos bases de datos. Una para los test y otra para la app, con los nombres chronometer y chronometer_test.
+Esta es una app de un cronómetro la cual tiene la funcionalidad de: 
+* Iniciar el tiempo
+* Pausar el tiempo
+* Finalizar el tiempo
+* Al finalizar, resetea el tiempo a 0, guarda el tiempo en la db y lo muestra en los tiempos guardados.
+* Borrar un tiempo específico
+* Borrar todos los tiempos
+
+## Base de datsos
+Crear dos bases de datos distintas. Una para la app y otra para los test.
+
+Se pueden llamar:
+* chronometer
+* chronometer_test
 
 ## Variables de entorno
 
