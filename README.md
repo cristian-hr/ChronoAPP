@@ -49,3 +49,12 @@ Luego para pasarlo a ES5
 ```
 npm run build
 ```
+## Para crear los contenedores Docker
+Ejecutar la siguiente línea
+```
+docker-compose up --build -d
+```
+Luego
+```
+docker-compose up
+```
