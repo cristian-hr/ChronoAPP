@@ -1,9 +1,12 @@
+# ChronoAPP
+
 Para hacer correr la APP hay que crear dos bases de datos. Una para los test y otra para la app, con los nombres chronometer y chronometer_test.
 
-También hay que definir las siguientes variables de entorno:
+## Variables de entorno
 
-Para el backend
+### Para el backend
 Agregar un archivo .env en la carpeta api con lo siguiente:
+```
 DB_USER=postgres
 DB_PASSWORD=(tu password de postgres)
 DB_HOST=localhost
@@ -11,7 +14,37 @@ DB_NAME=chronometer
 DB_TEST_NAME=chronometer_test
 DB_PORT=5432
 FRONT_URL=http://localhost:3000PORT=3001
+```
 
-Para el frontend
+### Para el frontend
 Agregar un archivo .env en la carpeta client con lo siguiente:
+```
 REACT_APP_BACK_URL=http://localhost:3001
+```
+
+## Para iniciar:
+
+Instalar dependencias en la carpeta api y en client
+```
+npm install
+```
+Luego en la carpeta api y client
+```
+npm start
+```
+## Para correr los test: 
+**El backend tiene que estar levantado**
+
+Luego en api y en client
+```
+npm test
+```
+
+## Para editar el backend
+```
+npm run dev
+```
+Luego
+```
+npm run build
+```
