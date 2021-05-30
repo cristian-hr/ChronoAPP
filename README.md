@@ -41,10 +41,11 @@ npm test
 ```
 
 ## Para editar el backend
+Se puede correr el código usando
 ```
 npm run dev
 ```
-Luego
+Luego para pasarlo a ES5
 ```
 npm run build
 ```
