@@ -26,7 +26,8 @@ DB_HOST=localhost
 DB_NAME=chronometer
 DB_TEST_NAME=chronometer_test
 DB_PORT=5432
-FRONT_URL=http://localhost:3000PORT=3001
+FRONT_URL=http://localhost:3000
+PORT=3001
 ```
 
 ### Para el frontend
