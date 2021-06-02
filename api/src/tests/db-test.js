@@ -10,9 +10,9 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_TEST_NAME, DB_PORT } = process.env;
 if (process.env.POSTGRES_PASSWORD) {
 
   const config = {
-    user: process.env.POSTGRES_USER,
+    user: "docker_test",
     pass: process.env.POSTGRES_PASSWORD,
-    name: process.env.POSTGRES_USER,
+    name: "docker_test",
     host: "db-test",
   }
 
